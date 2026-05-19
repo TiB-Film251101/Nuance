@@ -1,0 +1,7 @@
+name = "nuance-proxy"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# secrets は wrangler secret put で設定する（このファイルには書かない）
+# - ANTHROPIC_API_KEY
+# - NUANCE_SHARED_SECRET

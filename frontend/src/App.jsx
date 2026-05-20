@@ -61,7 +61,7 @@ export default function App() {
   const history = getHistory();
 
   const inputSt = {
-    fontFamily: HI, fontSize: 15, color: INK, background: WHITE,
+    fontFamily: HI, fontSize: 16, color: INK, background: WHITE,
     border: `1px solid ${LINE2}`, borderRadius: 4, padding: "10px 14px",
     boxSizing: "border-box", outline: "none", flex: 1,
   };

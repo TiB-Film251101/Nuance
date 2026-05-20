@@ -1,0 +1,15 @@
+/* iOS Safari の自動ズームを防ぐため、input は 16px 以上必須 */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* PC では小さく見せたい場合 */
+@media (min-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 14px;
+  }
+}

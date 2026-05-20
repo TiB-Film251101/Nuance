@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { lookupWord, getHistory } from "./lib/api.js";
 
 const HI = "'Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif";
@@ -21,12 +21,20 @@ export default function App() {
   const [copied, setCopied] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const inputRef = useRef(null);
+  const resultRef = useRef(null);
 
   const isError = result?.definition === ERROR_DEFINITION;
+
+  useEffect(() => {
+    if (result) {
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [result]);
 
   const handleLookup = async (word) => {
     const w = (word || input).trim();
     if (!w) return;
+    inputRef.current?.blur();
     setLoading(true);
     setError(null);
     setResult(null);
@@ -118,15 +126,26 @@ export default function App() {
       {/* ローディング */}
       {loading && (
         <div style={{ padding: "40px 0", textAlign: "center" }}>
-          <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 10 }}>
-            {[0, 1, 2].map((i) => (
-              <div key={i} style={{
-                width: 6, height: 6, borderRadius: "50%", background: PALE,
-                animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite`,
-              }} />
-            ))}
-          </div>
-          <style>{`@keyframes pulse { 0%,80%,100%{opacity:.2} 40%{opacity:1} }`}</style>
+          <svg width="120" height="60" viewBox="0 0 120 60" style={{ display: "block", margin: "0 auto 12px" }}>
+            <path d="M0,30 C30,0 90,60 120,30" stroke="#666" fill="none" strokeWidth="1.2" strokeLinecap="round" opacity="0.7">
+              <animate attributeName="d" dur="2.4s" repeatCount="indefinite"
+                values="M0,30 C30,0 90,60 120,30;
+                        M0,30 C30,60 90,0 120,30;
+                        M0,30 C30,0 90,60 120,30" />
+            </path>
+            <path d="M0,30 C30,10 90,50 120,30" stroke="#999" fill="none" strokeWidth="1.2" strokeLinecap="round" opacity="0.7">
+              <animate attributeName="d" dur="3s" repeatCount="indefinite"
+                values="M0,30 C30,10 90,50 120,30;
+                        M0,30 C30,50 90,10 120,30;
+                        M0,30 C30,10 90,50 120,30" />
+            </path>
+            <path d="M0,30 C30,18 90,42 120,30" stroke="#bbb" fill="none" strokeWidth="1.2" strokeLinecap="round" opacity="0.7">
+              <animate attributeName="d" dur="3.6s" repeatCount="indefinite"
+                values="M0,30 C30,18 90,42 120,30;
+                        M0,30 C30,42 90,18 120,30;
+                        M0,30 C30,18 90,42 120,30" />
+            </path>
+          </svg>
           <div style={{ fontFamily: HE, fontSize: 9, letterSpacing: "0.18em", color: PALE, textTransform: "uppercase" }}>Looking up</div>
         </div>
       )}
@@ -141,7 +160,7 @@ export default function App() {
 
       {/* 結果 */}
       {result && !loading && (
-        <div>
+        <div ref={resultRef}>
           {/* 語ヘッダー */}
           <div style={{ marginBottom: isError ? 0 : 20 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4 }}>

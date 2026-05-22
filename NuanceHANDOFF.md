@@ -95,6 +95,32 @@ Actions のビルド時に注入（Settings → Secrets → Actions）：
 ---
 
 ## ファイル構成
+
+```
+Nuance/
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx          UI本体（検索・結果表示・履歴・コピー）
+│   │   ├── index.css        グローバルCSS（input font-size: 16px など）
+│   │   ├── main.jsx         エントリーポイント
+│   │   └── lib/
+│   │       ├── prompt.js    プロンプト定義（{{INPUT_WORD}} を置換）
+│   │       └── api.js       lookupWord / extractJSON / 履歴管理
+│   ├── public/
+│   │   └── manifest.json    PWA設定
+│   ├── index.html
+│   ├── vite.config.js       base: "/Nuance/" でGitHub Pages対応
+│   ├── .env.local.example
+│   └── package.json
+├── worker/
+│   ├── src/index.js         Cloudflare Workers（CORS + shared secret認証）
+│   └── wrangler.toml        name: filmnuance-proxy
+├── .github/
+│   └── workflows/deploy.yml  master push で自動デプロイ
+├── NuanceHANDOFF.md         このファイル
+└── .gitignore               .wrangler/ を除外済み
+```
+
 ---
 
 ## ローカル開発
@@ -109,6 +135,10 @@ npm run dev
 ```
 
 `.env.local` に必要な値：
+```
+VITE_WORKER_URL=https://filmnuance-proxy.tib-film251101.workers.dev
+VITE_NUANCE_SECRET=（Cloudflareに設定したNUANCE_SHARED_SECRETと同じ値）
+```
 
 ---
 

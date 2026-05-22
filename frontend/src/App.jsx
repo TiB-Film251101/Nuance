@@ -6,9 +6,9 @@ const HE = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const BG = "#FAFAF8", WHITE = "#fff", INK = "#0F0F0F", PALE = "#999", LINE = "#E2E2E0", LINE2 = "#CACAC8";
 
 const CATEGORY_COLORS = {
-  core:      { border: "#D4A017", bg: "#FFFBEB", text: "#7A5C00" },
-  adjacent:  { border: "#C0707A", bg: "#FFF0F3", text: "#7A2030" },
-  stylistic: { border: "#999",    bg: "#F5F5F5", text: "#444"    },
+  core:        { border: "#D4A017", bg: "#FFFBEB", text: "#7A5C00" },
+  adjacent:    { border: "#C0707A", bg: "#FFF0F3", text: "#7A2030" },
+  descriptive: { border: "#7B7FC4", bg: "#F4F4FC", text: "#3D3D8A" },
 };
 
 const ERROR_DEFINITION = "該当する語彙として認識できません。";
